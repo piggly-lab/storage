@@ -2,9 +2,10 @@
 	"name": "@piggly/storage",
 	"version": "1.0.0",
 	"description": "An ESM/CommonJS toolkit to help you storage and upload files with NodeJS.",
+	"type": "module",
 	"scripts": {
 		"clean": "rimraf dist",
-		"prebuild": "npm run lint && npm run format",
+		"prebuild": "npm run format && npm run lint && npm run check && npm run test:build",
 		"build": "npm run clean && npm run build:types && npm run build:esm && npm run build:cjs",
 		"build:esm": "tsc -p tsconfig.esm.json && tsc-alias -p tsconfig.esm.json && node ./fixESM.cjs",
 		"build:cjs": "tsc -p tsconfig.cjs.json && tsc-alias -p tsconfig.cjs.json",
@@ -12,9 +13,10 @@
 		"check": "tsc --noEmit -p tsconfig.json",
 		"format": "prettier --write \"./src/**/*.ts\"",
 		"lint": "eslint --fix ./src/**",
-		"test": "cross-env NODE_ENV=test jest --coverage --watchAll",
-		"test:once": "cross-env NODE_ENV=test jest --passWithNoTests",
-		"test:debug": "cross-env NODE_ENV=test node --inspect ./node_modules/.bin/jest --runInBand",
+		"test": "cross-env NODE_ENV=test jest --colors --coverage --watchAll",
+		"test:once": "cross-env NODE_ENV=test jest --colors --no-cache",
+		"test:debug": "cross-env NODE_ENV=test node --inspect ./node_modules/.bin/jest --colors --runInBand",
+		"test:build": "cross-env NODE_ENV=test jest --passWithNoTests",
 		"preversion": "npm run build",
 		"postversion": "git push --follow-tags",
 		"prepublishOnly": "npm run build",
@@ -54,6 +56,11 @@
 		"url": "https://github.com/piggly-lab/storage/issues"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.26.0",
+		"@babel/plugin-transform-modules-commonjs": "^7.25.9",
+		"@babel/preset-env": "^7.26.0",
+		"@babel/preset-react": "^7.25.9",
+		"@babel/preset-typescript": "^7.26.0",
 		"@eslint/compat": "^1.2.0",
 		"@eslint/eslintrc": "^3.1.0",
 		"@eslint/js": "^9.14.0",
@@ -63,9 +70,13 @@
 		"@types/jest": "^29.5.14",
 		"@types/module-alias": "^2.0.4",
 		"@types/node": "^22.8.6",
+		"@types/pump": "^1.1.3",
 		"@typescript-eslint/eslint-plugin": "^8.10.0",
 		"@typescript-eslint/parser": "^8.10.0",
 		"@zerollup/ts-transform-paths": "^1.7.18",
+		"babel-jest": "^29.7.0",
+		"babel-plugin-transform-import-meta": "^2.2.1",
+		"cross-env": "^7.0.3",
 		"eslint": "^9.14.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-import-resolver-typescript": "^3.6.3",
@@ -84,5 +95,11 @@
 	},
 	"peerDependencies": {
 		"@piggly/ddd-toolkit": ">=3.0"
+	},
+	"dependencies": {
+		"@piggly/secrets": "^0.5.0",
+		"crc": "^4.3.2",
+		"file-type": "^19.0.0",
+		"pump": "^3.0.2"
 	}
 }

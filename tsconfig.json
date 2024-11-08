@@ -19,7 +19,7 @@
 		"outDir": "./dist/esm",
 		"paths": {
 			"@/*": ["src/*"],
-			"@test/*": ["test/*"]
+			"#/*": ["tests/*"]
 		},
 		"plugins": [
 			{
@@ -34,7 +34,7 @@
 	"include": [
 		"./src/**/*",
 		"./debug/**/*",
-		"./test/**/*",
+		"./tests/**/*",
 		"./samples/**/*",
 		"./samples/**/*"
 	],

@@ -1,0 +1,18 @@
+{
+	"presets": [
+		[
+			"@babel/preset-env",
+			{
+				"modules": "cjs",
+				"targets": {
+					"node": "current"
+				}
+			}
+		],
+		["@babel/preset-typescript", { "tsconfig": "./tsconfig.jest.json" }]
+	],
+	"plugins": [
+		"@babel/plugin-transform-modules-commonjs",
+		"babel-plugin-transform-import-meta"
+	]
+}
